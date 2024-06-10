@@ -40,3 +40,23 @@ jobs:
               ls
       - run: npm install -g @bigcommerce/stencil-cli@${{ secrets.STENCIL_VERSION}}
       - run: stencil --version
+  My-job2:
+    runs-on: ${{ inputs.runner}}
+    environment:
+      name: 'prod'
+
+    steps:
+      - run: echo "workflow running on ${{ inputs.runner}} "
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ inputs.checkoutrepo}}
+          ref: ${{inputs.checkoutbranch}}
+      - name: use Node JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ vars.NODEVERSION}}
+      - run: |
+              pwd
+              ls
+      - run: npm install -g @bigcommerce/stencil-cli@${{ secrets.STENCIL_VERSION}}
+      - run: stencil --version
