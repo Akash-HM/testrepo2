@@ -38,5 +38,5 @@ jobs:
       - run: |
               pwd
               ls
-      - run: npm install -g @bigcommerce/stencil-cli@${{ secrets.stencilversion}}
+      - run: npm install -g @bigcommerce/stencil-cli@${{ secrets.STENCIL_VERSION}}
       - run: stencil --version
