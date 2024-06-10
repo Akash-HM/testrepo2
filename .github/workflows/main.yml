@@ -25,6 +25,8 @@ on:
 jobs:
   My-job:
     runs-on: ${{ inputs.runner}}
+    environment:
+      name: 'stage'
 
     steps:
       - run: echo "workflow running on ${{ inputs.runner}} "
