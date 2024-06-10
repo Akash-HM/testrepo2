@@ -1,0 +1,43 @@
+name: POC_Workflow
+on:
+  workflow_call:
+    inputs:
+      runner:
+        description: "runner to execute workflow"
+        required: true
+        type: string
+      checkoutrepo:
+        description: "repository name to checkout"
+        required: true
+        type: string
+      checkoutbranch:
+        description: "branch name to checkout"
+        required: true
+        type: string
+      node-version:
+        description: "Node version"
+        required: true
+        type: string
+    secrets:
+      stencilversion:
+        required: true
+
+jobs:
+  My-job:
+    runs-on: ${{ inputs.runner}}
+
+    steps:
+      - run: echo "workflow running on ${{ inputs.runner}} "
+      - uses: actions/checkout@v2
+        with:
+          repository: ${{ inputs.checkoutrepo}}
+          ref: ${{inputs.checkoutbranch}}
+      - name: use Node JS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ vars.NODEVERSION}}
+      - run: |
+              pwd
+              ls
+      - run: npm install -g @bigcommerce/stencil-cli@${{ secrets.stencilversion}}
+      - run: stencil --version
